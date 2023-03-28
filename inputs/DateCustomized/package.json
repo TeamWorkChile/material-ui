@@ -1,0 +1,12 @@
+{
+  "name": "datecustomized",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "webpack --mode development --config config/webpack.config.js --watch",
+    "build": "webpack --mode production --config config/webpack.config.js --progress"
+  },
+  "author": "",
+  "license": "ISC"
+}
