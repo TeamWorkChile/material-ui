@@ -1,0 +1,18 @@
+{
+  "name": "@teamworkchile/material-ui",
+  "private": false,
+  "version": "2.0.5",
+  "description": "Material UI components for React applications at Teamwork Chile",
+  "scripts": {
+    "publish:npm": "npm publish --access public",
+    "build:dropdownlist": "cd dropdownlist && npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
+  }
+}

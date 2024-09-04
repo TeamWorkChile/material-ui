@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.dropdownlist {
+    display: flex;
+    width: 100%;
+    position: relative;
+
+    .input-dropdownlist {
+        width: 100%;
+
+        input {
+            width: 100%;
+            padding: 8px 16px;
+            border: 1px solid #D4D4D4;
+            border-radius: 8px;
+            outline: none;
+            background-color: #FDFDFD;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 23px;
+            text-overflow: ellipsis;
+            color: #142233;
+            user-select: none;
+            cursor: pointer;
+
+            &:focus {
+
+            }
+
+            &::placeholder {
+                color: #D4D4D4;
+                font-weight: 400;
+            }
+        }
+    }
+
+    .list-dropdownlist {
+
+    }
+}
