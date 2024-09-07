@@ -19,8 +19,6 @@
     "url": "https://github.com/sebastiansalas-tw"
   },
   "scripts": {
-    "build:datepicker": "cd datepicker && npm run build",
-    "build:datepicker": "cd datepicker && npm run build",
     "build:dropdownlist": "cd dropdownlist && npm run build",
     "publish:npm": "npm publish --access public",
     "macos:create:lib:component:react": "bash ./.scripts/macos/build.lib.component.react.sh"
