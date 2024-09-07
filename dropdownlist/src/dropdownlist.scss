@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.dropdownlist {
+    display: flex;
+    width: 100%;
+    position: relative;
+    flex-direction: column;
+
+    .input-dropdownlist {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        input {
+            width: 100%;
+            padding: 8px 16px;
+            border-radius: 8px;
+            outline: none;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 23px;
+            text-overflow: ellipsis;
+            user-select: none;
+            cursor: pointer;
+
+            &:focus {
+
+            }
+
+            &::placeholder {
+                font-weight: 400;
+            }
+        }
+
+        .button-close {
+            right: calc(16px + 24px);
+        }
+
+        .button-collapse {
+            right: 16px;
+        }
+
+        .button-collapse,
+        .button-close {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: inherit;
+            border: none;
+            cursor: pointer;
+
+            svg {
+                path {
+                    fill: #1E334C;
+                }
+            }
+        }
+
+    }
+
+    .label-dropdownlist {
+        color: #8E8E8E;
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .list-dropdownlist {
+        // hola
+        border: 1px solid #F00;
+    }
+}
+
+.dropdownlist-light-mode {
+    .input-dropdownlist { 
+        input {
+            border: 1px solid #D4D4D4;
+            background-color: #FDFDFD;
+            color: #142233;
+
+            &::placeholder {
+                color: #D4D4D4;
+            }
+        }
+    }
+}
+
+.dropdownlist-dark-mode {
+    .input-dropdownlist { 
+        input {
+            border: 1px solid #B1B1B1;
+            background-color:#1D1D1D;
+            color: #fff;
+
+            &::placeholder {
+                color: #D4D4D4;
+                font-weight: 400;
+            }
+        }
+    }
+}

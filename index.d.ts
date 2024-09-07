@@ -1,0 +1,1 @@
+// proyect type: typescript

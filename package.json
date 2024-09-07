@@ -1,14 +1,33 @@
 {
   "name": "@teamworkchile/material-ui",
   "private": false,
-  "version": "2.0.5",
+  "version": "2.0.9",
   "description": "Material UI components for React applications at Teamwork Chile",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TeamWorkChile/material-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mui/material-ui/issues",
+    "email": "sistemas@team-work.cl"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Sebastian Salas Acevedo",
+    "email": "sebastian.salas@team-work.cl",
+    "url": "https://github.com/sebastiansalas-tw"
+  },
   "scripts": {
+    "build:datepicker": "cd datepicker && npm run build",
+    "build:datepicker": "cd datepicker && npm run build",
+    "build:dropdownlist": "cd dropdownlist && npm run build",
     "publish:npm": "npm publish --access public",
-    "build:dropdownlist": "cd dropdownlist && npm run build"
+    "macos:create:lib:component:react": "bash ./.scripts/macos/build.lib.component.react.sh"
   },
   "peerDependencies": {
-    "react": "^18.3.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
