@@ -7,6 +7,19 @@ config_dir="$path/$base_dir/config"
 temp_dir="$path/$base_dir/temp"
 bash_dir="$path/$base_dir/macos/bash"
 
+os_type=$(uname)
+
+if [[ "$os_type" != "Darwin" ]]; then
+    echo -e "\033[31mError: This script is only compatible with macOS.\033[0m"
+    echo ""
+    echo -e "You can use the following npm command to run from \033[34mwindows:\033[0m"
+    echo ""
+    echo -e "\033[34m> npm run win:create:lib:component:react\033[0m"
+    exit
+fi
+
+clear
+
 echo -e "\033[37m******************************************************************\033[0m"
 echo -e "\033[37m*                                                                *\033[0m"
 echo -e "\033[37m*                                                                *\033[0m"

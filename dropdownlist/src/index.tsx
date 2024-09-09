@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import ArrowIcon from "./components/svg/ArrowIcon";
-import "./datepicker.css";
+import "./dropdownlist.min.css";
 import CloseIcon from "./components/svg/CloseIcon";
 import { DARK, LIGHT } from "./dictorionary/theme.dictionary";
 
