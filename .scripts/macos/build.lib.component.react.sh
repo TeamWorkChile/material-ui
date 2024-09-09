@@ -164,21 +164,21 @@ file_sass_size=$(stat -f%z $index_scss_file)
 file_package_size=$(stat -f%z $component_dir/$package_file)
 file_tsconfig_size=$(stat -f%z $component_dir/$tsconfig_file)
 file_vite_size=$(stat -f%z $component_dir/$vite_file)
+dir_src_size=$(echo "$file_size + $file_sass_size" | bc)
 
 file_size_kb=$(echo "scale=3; $file_size / 1024" | bc)
-file_size_kb_formatted=$(printf "%.3f" $file_size_kb)
 file_sass_size_kb=$(echo "scale=3; $file_sass_size / 1024" | bc)
-file_sass_size_kb_formatted=$(printf "%.3f" $file_sass_size_kb)
 file_package_size_kb=$(echo "scale=3; $file_package_size / 1024" | bc)
-file_package_size_kb_formatted=$(printf "%.3f" $file_package_size_kb)
 file_tsconfig_size_kb=$(echo "scale=3; $file_tsconfig_size / 1024" | bc)
-file_tsconfig_size_kb_formatted=$(printf "%.3f" $file_tsconfig_size_kb)
 file_vite_size_kb=$(echo "scale=3; $file_vite_size / 1024" | bc)
-file_vite_size_kb_formatted=$(printf "%.3f" $file_vite_size_kb)
-
-dir_src_size=$(echo "$file_size + $file_sass_size" | bc)
 dir_src_size_kb=$(echo "scale=3; $dir_src_size / 1024" | bc)
-dir_src_size_kb_formatted=$(printf "%.3f" $dir_src_size_kb)
+
+dir_src_size_kb_formatted=$( [ $file_size -gt 999 ] && echo "" || echo "0")"$file_size_kb" #$(printf "%.3f" $dir_src_size_kb)
+file_size_kb_formatted=$( [ $file_sass_size -gt 999 ] && echo "" || echo "0")"$file_sass_size_kb" #$(printf "%.3f" $file_size_kb)
+file_sass_size_kb_formatted=$( [ $file_package_size -gt 999 ] && echo "" || echo "0")"$file_package_size_kb" #$(printf "%.3f" $file_sass_size_kb)
+file_package_size_kb_formatted=$( [ $file_tsconfig_size -gt 999 ] && echo "" || echo "0")"$file_tsconfig_size_kb" #$(printf "%.3f" $file_package_size_kb)
+file_tsconfig_size_kb_formatted=$( [ $file_vite_size -gt 999 ] && echo "" || echo "0")"$file_vite_size_kb" #$(printf "%.3f" $file_tsconfig_size_kb)
+file_vite_size_kb_formatted=$( [ $dir_src_size -gt 999 ] && echo "" || echo "0")"$dir_src_size_kb" #$(printf "%.3f" $file_vite_size_kb)
 
 echo ""
 echo -e "4 modules created in component folder \033[32m\033[1m$component\033[0m"
@@ -197,5 +197,6 @@ execution_time=$(echo "$end_time - $start_time" | bc)
 echo -e ""
 echo -e "\033[32m\xE2\x9C\x94 Build in "$execution_time"ms\033[0m"
 
-echo ""
+echo -e "\n"
 echo "Happy coding! 🚀"
+echo -e "\n\n"
