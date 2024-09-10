@@ -47,7 +47,7 @@ while true; do
         selected=0
         while true; do
           echo -e "\033[31mA component with the name\033[0m $component \033[31malready exists. Please choose an option:\033[0m\n"
-          echo -e "\033[34mSelect an option:\033[0m"
+          echo -e "\033[34mWhat would you like to do?\033[0m"
           echo ""
           for i in "${!options[@]}"; do
               if [ $i -eq $selected ]; then

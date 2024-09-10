@@ -6,7 +6,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build & tsc"
+    "build": "vite build & tsc",
+    "win:build": "npm run build && npm run win:build:clone:npm",
+    "macos:build": "npm run build && npm run macos:build:clone:npm",
+    "win:build:clone:npm": "powershell ./.scripts/win/clone.npm.build.lib.ps1 -ComponentName {{component}}",
+    "macos:build:clone:npm": "bash ./.scripts/macos/clone.npm.build.lib.sh {{component}}"
   },
   "author": "",
   "license": "ISC"
