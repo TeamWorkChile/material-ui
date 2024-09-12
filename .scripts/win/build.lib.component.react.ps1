@@ -176,15 +176,110 @@ Set-Content -Path $newFilePathCSS -Value $contentCSS
 
 $packageJsonContent = Get-Content -Path ./package.json -Raw | ConvertFrom-Json
 
-if (-not ($packageJsonContent.scripts["win:build:$componentName"])) {
-    $packageJsonContent | Add-Member -MemberType NoteProperty -Name scripts["win:build:$componentName"] -Value "cd $componentName && npm run win:build"
+# Obtener los nombres de las propiedades del objeto packageJsonContent
+$propertyNames = $packageJsonContent | Get-Member -MemberType Properties | Select-Object -ExpandProperty Name
+
+$packageJsonNewContent = "{`n"
+$roundPackage = 0
+
+$orderPackageJson = @(
+    "name",
+    "private",
+    "version",
+    "description",
+    "types",
+    "repository",
+    "bugs",
+    "license",
+    "author",
+    "scripts",
+    "peerDependencies",
+    "devDependencies"
+)
+
+$propertiesOrder = @()
+
+foreach($order in $orderPackageJson){
+    if($propertyNames -contains $order){
+        $propertiesOrder += $order
+    }
 }
 
-if (-not ($packageJsonContent.scripts["macos:build:$componentName"])) {
-    $packageJsonContent | Add-Member -MemberType NoteProperty -Name scripts["macos:build:$componentName"] -Value "cd $componentName && npm run macos:build"
+forEach($property in $propertiesOrder){
+    $element = $property
+    $value = $packageJsonContent."$property"
+
+    $typeValue = $value.GetType().Name
+
+    if($typeValue -eq "String"){
+        $packageJsonNewContent = $packageJsonNewContent + '  "' + $property + '": "' + $value + '"'
+    }
+
+    if($typeValue -eq "Boolean"){
+        $packageJsonNewContent = $packageJsonNewContent + '  "' + $property + '": ' + $value.ToString().toLower() + ''
+    }
+
+    if($typeValue -eq "PSCustomObject"){
+        $propartyNamesByProperty = $packageJsonContent."$property" | Get-Member -MemberType Properties | Select-Object -ExpandProperty Name
+
+        $packageJsonNewContent = $packageJsonNewContent + '  "' + $property + '": {' + "`n"
+        
+        $roundPackagePropertyObject = 0
+
+        if($property -eq "scripts"){
+            $scriptBuildWin = "win:build:$componentName"
+            $scriptBuildMacos = "macos:build:$componentName"
+
+            if(-not ($propartyNamesByProperty -contains $scriptBuildWin)){
+                $winBuild = $scriptBuildWin + '": "' + "cd $componentName && npm run win:build"
+                $packageJsonNewContent = $packageJsonNewContent + '    "' + $winBuild + '",' + "`n"
+            }
+
+            if(-not ($propartyNamesByProperty -contains $scriptBuildMacos)){
+                $macosBuild = $scriptBuildMacos + '": "' + "cd $componentName && npm run macos:build"  
+                $packageJsonNewContent = $packageJsonNewContent + '    "' + $macosBuild + '",' + "`n"
+            }
+        }
+
+        foreach ($propertyObject in $propartyNamesByProperty) {
+            $valueObject = $packageJsonContent."$property"."$propertyObject"
+
+            $packageJsonNewContent = $packageJsonNewContent + '    "' + $propertyObject + '": "' + $valueObject + '"'
+
+            if($roundPackagePropertyObject -lt $propartyNamesByProperty.Count - 1){
+                $packageJsonNewContent = $packageJsonNewContent + ","
+            }
+
+            $packageJsonNewContent = $packageJsonNewContent + "`n"
+
+            $roundPackagePropertyObject = $roundPackagePropertyObject + 1
+
+        }
+
+        $packageJsonNewContent = $packageJsonNewContent + "  }"
+    }
+
+    if($roundPackage -lt $propertyNames.Count - 1){
+        $packageJsonNewContent = $packageJsonNewContent + ","
+    }
+
+    $packageJsonNewContent = $packageJsonNewContent + "`n"
+
+    $roundPackage = $roundPackage + 1
 }
 
-Set-Content -Path ./package.json -Value $packageJsonContent
+$packageJsonNewContent = $packageJsonNewContent + "}"
+
+if(-not (Test-Path -Path ./.scripts/temp -PathType Container)){
+    mkdir ./.scripts/temp
+}
+
+New-Item -Path ./.scripts/temp/package.json -ItemType File -Force
+Set-Content -Path ./.scripts/temp/package.json -Value $packageJsonNewContent
+
+Move-Item -Path ./.scripts/temp/package.json -Destination ./package.json -Force
+
+clear
 
 Write-Host ""
 Write-Host "The React component named has been successfully created " -NoNewline -ForegroundColor Green
